@@ -1,30 +1,27 @@
-// from data.js
 var tableData = data;
-
 // YOUR CODE HERE!
-//Prepare container
+
 let tbody = d3.select('tbody');
 
-function dropData(dataset){
-    //Remember cleaning table body to get fresh data from filter
+function selectedData(dataset){
     tbody.html('');
     dataset.forEach((dr) => {
-        let row=tbody.append('tr');
+        let newRow=tbody.append('tr');
         Object.values(dr).forEach((value) =>{
-            let cell = row.append('td');
-            cell.text(value);
+            let newCell = newRow.append('td');
+            newCell.text(value);
         });
     })
 }
-dropData(tableData)
+selectedData(tableData)
 
-function dropDownClick(){
-    let selected_date = d3.select('#datetime').property('value');
-    let dataFilter = tableData
-    if(selected_date){
-        dataFilter = dataFilter.filter((row) => row.datetime === selected_date)
+function filterClick(){
+    let newDate = d3.select('#datetime').property('value');
+    let newFilter = tableData
+    if(newDate){
+        newFilter = newFilter.filter((row) => row.datetime === newDate)
     }
-    dropData(dataFilter)
+    selectedData(newFilter)
 }
 
-d3.selectAll('#filter-btn').on('click', dropDownClick);
+d3.selectAll('#filter-btn').on('click', filterClick);
